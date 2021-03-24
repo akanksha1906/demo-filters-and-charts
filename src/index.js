@@ -3,11 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+import ProgressBar from "react-topbar-progress-indicator";
+const SalesComponent = React.lazy(() => import('./components/SalesComponent'));
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Router>
+      <div>
+        <Suspense fallback={<ProgressBar color="#f11946" />}>
+          <Route exact path="/" component={SalesComponent} />
+          <Route exact path="/sales" component={SalesComponent} />
+        </Suspense>
+      </div>
+    </Router>,
   document.getElementById('root')
 );
 
